@@ -1,0 +1,188 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  JDK_VERSION = "1.5";
+  static = true;
+}
+
+
+PARSER_BEGIN(Analisador)
+public class Analisador {
+	public static void main(String args[]) throws ParseException {
+	  
+	}
+	
+}
+PARSER_END(Analisador)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+
+TOKEN :
+{  
+< String : "String" >
+|
+< Main : "main" >
+|
+< Void : "void" >
+|
+< Static : "static" >
+|
+< Classe : "class" >
+|
+< Extends : "extends" >
+|
+< Public : "public" >
+|  
+< Return : "return" >
+|
+< Boolean : "boolean" >
+|
+< Length : "length" >
+|
+< True : "true" >
+|
+< False : "false" >
+|
+< This : "this" >
+|
+< Int : "int" >
+|
+< New : "new" >
+|
+< If : "if" >
+|
+< Else : "else" >
+|
+< While : "while" >
+|
+< Syso : "System.out.println" >
+|
+< OperadorLogico : "&&" > 
+|
+< Equal : "=" >
+|
+< Menor : "<" >
+|
+< OperadorMatematico : "+" | "-" | "*" >
+|
+< AbreParentesis : "(" >
+|
+< FechaParentesis : ")" >
+|
+< AbreColchete : "[" >
+|
+< FechaColchete : "]" >
+|
+< AbreChaves : "{" >
+|
+< FechaChaves : "}" >
+|
+< Identifier : <  LETTERS > ( < LETTERS > | <  INTEGER_LITERAL >)* >
+|
+< LETTERS : [ "A"-"Z", "a"-"z" ] >
+|
+< INTEGER_LITERAL : [ "0"-"9" ] >
+|
+< ponto_virg : ";" >
+|
+< Ponto : "." >
+|
+< Virgula : "," >
+|
+< Negacao : "!" >
+}
+
+SimpleNode processa()  : {}
+{
+	goal()
+	{
+	  return jjtThis;
+	}
+}
+
+void goal() : {}
+{
+  mainClass() ( classDeclaration() )* < EOF >
+}
+
+void mainClass() : {}
+{
+	< Classe > < Identifier > < AbreChaves > < Public > < Static > < Void > < Main > < AbreParentesis > < String > < AbreColchete > < FechaColchete > < Identifier > < FechaParentesis > < AbreChaves > statement() < FechaChaves > < FechaChaves >
+}
+
+void  classDeclaration() : {}
+{
+	< Classe > < Identifier > ( < Extends > < Identifier > )?  < AbreChaves > ( varDeclaration() )* ( methodDeclaration() )* < FechaChaves >
+}
+
+void varDeclaration() : {}
+{
+	type() < Identifier > < ponto_virg >
+}
+
+void methodDeclaration() : {}
+{
+	< Public > type() < Identifier > < AbreParentesis > ( type() < Identifier > ( < Virgula > type() < Identifier > )* )? < FechaParentesis > < AbreChaves > ( varDeclaration() )* ( statement() )* < Return >  expression() < ponto_virg > < FechaChaves >
+}
+
+void type() : {}
+{
+	< Int > ( < AbreColchete > < FechaColchete > | < Boolean > | < Int > | < Identifier > )
+}
+
+void statement() : {}
+{
+	< AbreChaves >  ( statement()  )*  < FechaChaves > 
+	|
+	< If > < AbreParentesis > expression() < FechaParentesis > statement() < Else > statement()
+	|
+	< While > < AbreParentesis > expression() < FechaParentesis > statement()
+	|
+	< Syso > < AbreParentesis > expression() < FechaParentesis > < ponto_virg >
+	|
+	< Identifier > ( < Equal > expression() < ponto_virg > | < AbreColchete > expression() < FechaColchete > < Equal > expression() < ponto_virg > ) 
+
+}
+
+void expression() : {}
+{
+	( < OperadorLogico > | < Menor > | < OperadorMatematico > ) expression1()
+	|
+	< AbreColchete > expression1() < FechaColchete >
+	|
+	< Ponto > ( < Length > | < Identifier > < AbreParentesis > ( expression1() ( < Virgula > expression1() )* )? < FechaParentesis > )
+	
+}
+
+void expression1() : {}
+{
+	< INTEGER_LITERAL > expression()
+	|
+	< True > expression()
+	|
+	< False > expression()
+	|
+	< Identifier > expression()
+	|
+	< This > expression()
+	|
+	< New > ( < Int > < AbreColchete > expression1() < FechaColchete > expression() | < Identifier > < AbreParentesis > < FechaParentesis > expression() )
+	|
+	< Negacao > expression1() expression()
+	|
+	< AbreParentesis > expression() < FechaParentesis > expression()
+}
+
+void identifier() : {}
+{
+	< Identifier >
+}
