@@ -4,7 +4,7 @@
 options
 {
   JDK_VERSION = "1.5";
-  static = true;
+  static = false;
 }
 
 
@@ -87,9 +87,9 @@ TOKEN :
 |
 < Identifier : <  LETTERS > ( < LETTERS > | <  INTEGER_LITERAL >)* >
 |
-< LETTERS : [ "A"-"Z", "a"-"z" ] >
+< #LETTERS : [ "A"-"Z", "a"-"z", "_" ] >
 |
-< INTEGER_LITERAL : [ "0"-"9" ] >
+< #INTEGER_LITERAL : [ "0"-"9" ] >
 |
 < ponto_virg : ";" >
 |
@@ -130,12 +130,12 @@ void varDeclaration() : {}
 
 void methodDeclaration() : {}
 {
-	< Public > type() < Identifier > < AbreParentesis > ( type() < Identifier > ( < Virgula > type() < Identifier > )* )? < FechaParentesis > < AbreChaves > ( varDeclaration() )* ( statement() )* < Return >  expression() < ponto_virg > < FechaChaves >
+	< Public > type() < Identifier > < AbreParentesis > ( type() < Identifier > ( < Virgula > type() < Identifier > )* )? < FechaParentesis > < AbreChaves > ( varDeclaration() )* ( statement() )* < Return >  expression() < ponto_virg >
 }
 
 void type() : {}
 {
-	< Int > ( < AbreColchete > < FechaColchete > | < Boolean > | < Int > | < Identifier > )
+	< Int > (< AbreColchete > < FechaColchete > | {} ) | < Boolean > |	 < Identifier > )
 }
 
 void statement() : {}
@@ -158,8 +158,7 @@ void expression() : {}
 	|
 	< AbreColchete > expression1() < FechaColchete >
 	|
-	< Ponto > ( < Length > | < Identifier > < AbreParentesis > ( expression1() ( < Virgula > expression1() )* )? < FechaParentesis > )
-	
+	< Ponto > ( < Length > | < Identifier > < AbreParentesis > ( expression1() ( < Virgula > expression1() )* )? < FechaParentesis > ) | {}
 }
 
 void expression1() : {}
@@ -178,10 +177,5 @@ void expression1() : {}
 	|
 	< Negacao > expression1() expression()
 	|
-	< AbreParentesis > expression() < FechaParentesis > expression()
-}
-
-void identifier() : {}
-{
-	< Identifier >
+	< AbreParentesis > expression1() < FechaParentesis > expression()
 }
