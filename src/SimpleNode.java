@@ -72,6 +72,18 @@ class SimpleNode implements Node {
       }
     }
   }
-}
+  
+  //////////////////Não é certeza ainda
+  /*
+  public int accept(Visitor v){
+	  int nti ;
+
+	  System.out.println(333);
+	  nti = v.visit(this) ;
+	  return 0 ;
+  }
+	*/
+  ///////////////////
+	}
 
 /* JavaCC - OriginalChecksum=4af7936813c13640c78d05c205b8fa28 (do not edit this line) */
