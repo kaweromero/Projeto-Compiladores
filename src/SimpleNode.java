@@ -72,6 +72,12 @@ class SimpleNode implements Node {
       }
     }
   }
+
+@Override
+public Object jjtAccept(AnalisadorVisitor visitor, Controlador data) {
+	// TODO Auto-generated method stub
+	return null;
+}
   
   //////////////////Não é certeza ainda
   /*

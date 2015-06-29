@@ -11,7 +11,6 @@ public interface AnalisadorTreeConstants
   public int JJTSTATEMENT = 7;
   public int JJTEXPRESSION = 8;
   public int JJTEXPRESSION1 = 9;
-  public int JJTIDENTIFIER = 10;
 
 
   public String[] jjtNodeName = {
@@ -25,7 +24,6 @@ public interface AnalisadorTreeConstants
     "statement",
     "expression",
     "expression1",
-    "identifier",
   };
 }
-/* JavaCC - OriginalChecksum=0aaa2c3d46786630343458518f7f5df0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=14383bc5b14565a607b78bbd73b93fae (do not edit this line) */

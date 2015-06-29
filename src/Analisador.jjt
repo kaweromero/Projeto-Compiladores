@@ -3,8 +3,14 @@
  */
 options
 {
-  JDK_VERSION = "1.5";
-  static = false;
+   JDK_VERSION = "1.5";
+  STATIC = false;
+  MULTI = true;
+  NODE_PREFIX = "";
+  VISITOR = true;
+  VISITOR_DATA_TYPE = "Controlador";
+  NODE_CLASS = "CustomNode";
+  DEBUG_LOOKAHEAD = true;
 }
 
 
@@ -135,7 +141,7 @@ void methodDeclaration() : {}
 
 void type() : {}
 {
-	< Int > (< AbreColchete > < FechaColchete > | {} ) | < Boolean > |	 < Identifier > )
+	< Int > ((< AbreColchete > < FechaColchete > | {} ) | < Boolean > |	 < Identifier > )
 }
 
 void statement() : {}
